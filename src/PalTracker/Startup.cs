@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,16 +26,19 @@ namespace PalTracker
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-		services.AddSingleton(sp => new WelcomeMessage(
-             	Configuration.GetValue<string>("WELCOME_MESSAGE", "WELCOME_MESSAGE not configured.")
-           	));
-		services.AddSingleton(sp => new CloudFoundryInfo(
-             	Configuration.GetValue<string>("PORT", "8098"),
-		Configuration.GetValue<string>("MEMORY_LIMIT", "345435"),
-		Configuration.GetValue<string>("CF_INSTANCE_INDEX", "2"),
-		Configuration.GetValue<string>("CF_INSTANCE_ADDR", "AD-76")
 
-           	));
+            services.AddSingleton(sp => new WelcomeMessage(
+                Configuration.GetValue<string>("WELCOME_MESSAGE", "WELCOME_MESSAGE not configured.")
+            ));
+
+            services.AddSingleton(sp => new CloudFoundryInfo(
+                Configuration.GetValue<string>("PORT"),
+                Configuration.GetValue<string>("MEMORY_LIMIT"),
+                Configuration.GetValue<string>("CF_INSTANCE_INDEX"),
+                Configuration.GetValue<string>("CF_INSTANCE_ADDR")
+            ));
+
+            services.AddSingleton<ITimeEntryRepository, InMemoryTimeEntryRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
