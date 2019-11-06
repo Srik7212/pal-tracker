@@ -12,11 +12,11 @@ namespace PalTracker
 
         public TimeEntry(long id, long projectId, long userId, DateTime date, int hours)
         {
-            Id = 1;
-            ProjectId = 1;
-            UserId = 1;
-            Date = DateTime.Now;
-            Hours =12;
+            Id = id;
+            ProjectId = projectId;
+            UserId = userId;
+            Date = date;
+            Hours =hours;
         }
 
         public TimeEntry(long projectId, long userId, DateTime date, int hours)
