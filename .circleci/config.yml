@@ -7,7 +7,20 @@ jobs:
           DEBIAN_FRONTEND: "noninteractive"
     steps:
       - checkout
-     - run:
+      - run:
+          name: Test and build
+          command: |
+            bash ./scripts/build.sh $CIRCLE_SHA1
+
+      - store_artifacts:
+          path: artifacts
+
+      - persist_to_workspace:
+          root: artifacts
+          paths:
+            - pal-tracker-*.tgz
+
+            - run:
          name: Install MySQL
          command: |
            apt-get update
